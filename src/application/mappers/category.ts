@@ -1,5 +1,5 @@
-import { Category } from "#domain/entities/category.ts";
-import { CustomError } from "#domain/errors/custom.ts";
+import { Category } from "@/domain/entities/category";
+import { CustomError } from "@/domain/errors/custom";
 
 type GenericObject = { [key: string]: unknown };
 

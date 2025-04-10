@@ -1,6 +1,6 @@
-import { Expense } from "#domain/entities/expense.ts";
-import { CustomError } from "#domain/errors/custom.ts";
-import { isDate } from "node:util/types";
+import { Expense } from "@/domain/entities/expense";
+import { CustomError } from "@/domain/errors/custom";
+import { isDate } from "util/types";
 
 type GenericObject = { [key: string]: unknown };
 

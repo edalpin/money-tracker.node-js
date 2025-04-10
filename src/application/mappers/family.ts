@@ -1,5 +1,5 @@
-import { Family } from "#domain/entities/family.ts";
-import { CustomError } from "#domain/errors/custom.ts";
+import { Family } from "@/domain/entities/family";
+import { CustomError } from "@/domain/errors/custom";
 
 type GenericObject = { [key: string]: unknown };
 

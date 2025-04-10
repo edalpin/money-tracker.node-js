@@ -1,6 +1,7 @@
-import { envs } from "#config/envs.ts";
-import { ExpressServer } from "#presentation/express-server.ts";
-import { AppRoutes } from "#presentation/routes.ts";
+import 'module-alias/register';
+import { envs } from "@/config/envs";
+import { ExpressServer } from "@/presentation/express-server";
+import { AppRoutes } from "@/presentation/routes";
 
 const main = async () => {
   const port = envs.PORT;
