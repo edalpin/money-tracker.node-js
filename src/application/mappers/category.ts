@@ -1,24 +1,23 @@
-import { Category } from "@/domain/entities/category";
+import { CategoryEntity } from "@/domain/entities/category";
 import { CustomError } from "@/domain/errors/custom";
+import { categoryErrorMessages } from "@/domain/errors/messages";
 
-type GenericObject = { [key: string]: unknown };
+// INFO: Allowed ignore
+// eslint-disable-next-line
+type GenericObject = { [key: string]: any };
 
 export class CategoryMapper {
-  static categoryEntityFromObject(object: GenericObject): Category {
-    const { _id, name, family } = object;
+  static categoryEntityFromObject(object: GenericObject): CategoryEntity {
+    const { _id, id, name } = object;
+    const categoryId = _id || id;
 
-    if (!_id) throw CustomError.badRequest("Missing category id");
-    if (typeof _id !== "string")
-      throw CustomError.badRequest("Category id must be a string");
+    if (!categoryId) throw CustomError.badRequest(categoryErrorMessages.missingId);
 
-    if (!name) throw CustomError.badRequest("Missing categoty name");
-    if (typeof name !== "string")
-      throw CustomError.badRequest("Category name must be a string");
+    if (!name) throw CustomError.badRequest(categoryErrorMessages.missingName);
+    if (typeof name !== "string") {
+      throw CustomError.badRequest(categoryErrorMessages.invalidNameType);
+    }
 
-    if (!family) throw CustomError.badRequest("Missing category family");
-    if (typeof family !== "string")
-      throw CustomError.badRequest("Category family must be a string");
-
-    return new Category(_id, name, family);
+    return new CategoryEntity(categoryId, name);
   }
 }

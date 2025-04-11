@@ -5,6 +5,7 @@ type Options = {
   routes: Router;
 };
 
+/* eslint no-console: ["error", { allow: ["info"] }] */
 export class ExpressServer {
   private readonly app = express();
   private readonly port: number;

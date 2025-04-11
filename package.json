@@ -5,11 +5,13 @@
   "license": "ISC",
   "description": "",
   "scripts": {
-    "dev": "tsnd --respawn --clear src/app.ts",
-    "build": "rimraf ./dist && tsc",
+    "dev": "tsnd --respawn -r tsconfig-paths/register src/app.ts",
+    "build": "rimraf ./dist && tsc && tsc-alias",
     "start": "npm run build && node dist/app.js",
-    "lint": "eslint ./src",
-    "format": "prettier --write ."
+    "eslint": "eslint ./src",
+    "prettier": "prettier --check .",
+    "eslint:fix": "eslint ./src --fix",
+    "prettier:fix": "prettier --write ."
   },
   "devDependencies": {
     "@eslint/js": "^9.24.0",
@@ -18,18 +20,17 @@
     "@types/node": "^22.14.0",
     "eslint": "^9.24.0",
     "globals": "^16.0.0",
-    "module-alias": "^2.2.3",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.15",
+    "tsconfig-paths": "^4.2.0",
     "typescript-eslint": "^8.29.1"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
     "env-var": "^7.5.0",
-    "express": "^5.1.0"
-  },
-  "_moduleAliases": {
-    "@": "./dist"
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2"
   }
 }
