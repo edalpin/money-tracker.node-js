@@ -1,20 +1,12 @@
-import { CustomError } from "@/domain/errors/custom";
-import { categoryErrorMessages, genericErrorMessages } from "@/domain/errors/messages";
+import { GenericObject } from "@/shared/types";
+import { BaseCategoryDto } from "@/domain/dtos/category/base";
 
-type GenericObject = { [key: string]: unknown };
-
-export class UpdateCategoryDto {
-  private constructor(public readonly name: string) {}
+export class UpdateCategoryDto extends BaseCategoryDto {
+  private constructor(object: GenericObject) {
+    super(object);
+  }
 
   static create(object: GenericObject): UpdateCategoryDto {
-    if (!object) throw CustomError.badRequest(genericErrorMessages.invalidBody);
-
-    const { name } = object;
-    if (!name) throw CustomError.badRequest(categoryErrorMessages.missingName);
-    if (typeof name !== "string") {
-      throw CustomError.badRequest(categoryErrorMessages.invalidNameType);
-    }
-
-    return new UpdateCategoryDto(name);
+    return new UpdateCategoryDto(object);
   }
 }
