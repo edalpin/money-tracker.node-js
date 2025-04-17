@@ -1,6 +1,6 @@
+import { CreateCategoryDto } from "@/domain/dtos/category/create";
+import { UpdateCategoryDto } from "@/domain/dtos/category/update";
 import { CategoryEntity } from "@/domain/entities/category";
-import { CreateCategoryDto } from "../dtos/category/create";
-import { UpdateCategoryDto } from "../dtos/category/update";
 
 export abstract class CategoryRepository {
   abstract getCategory(id: string): Promise<CategoryEntity>;

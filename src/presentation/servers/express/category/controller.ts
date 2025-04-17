@@ -1,7 +1,7 @@
 import { CreateCategoryDto } from "@/domain/dtos/category/create";
 import { UpdateCategoryDto } from "@/domain/dtos/category/update";
 import { CustomError } from "@/domain/errors/custom";
-import { categoryErrorMessages } from "@/domain/errors/messages";
+import { categoryErrorMessages, genericErrorMessages } from "@/domain/errors/messages";
 import { CategoryRepository } from "@/domain/repositories/category";
 import { CreateCategoryUseCase } from "@/domain/use-cases/category/create";
 import { DeleteCategoryUseCase } from "@/domain/use-cases/category/delete";
@@ -19,13 +19,13 @@ export class CategoryController {
       return res.status(error.code).json({ error: error.message });
     }
     console.error("Critical:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: genericErrorMessages.serverError });
   }
 
   getCategory = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;
-      if (!id) throw CustomError.badRequest(categoryErrorMessages.missingId);
+      if (!id) throw CustomError.badRequest(categoryErrorMessages.requiredId);
       const useCase = new GetCategoryUseCase(this.categoryRepository);
       const result = await useCase.execute(id);
       return res.json(result);
@@ -58,7 +58,7 @@ export class CategoryController {
   updateCategory = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;
-      if (!id) throw CustomError.badRequest(categoryErrorMessages.missingId);
+      if (!id) throw CustomError.badRequest(categoryErrorMessages.requiredId);
       const dto = UpdateCategoryDto.create(req.body);
       const useCase = new UpdateCategoryUseCase(this.categoryRepository);
       const result = await useCase.execute(id, dto);
@@ -71,10 +71,10 @@ export class CategoryController {
   deleteCategory = async (req: Request, res: Response) => {
     try {
       const id = req.params.id;
-      if (!id) throw CustomError.badRequest(categoryErrorMessages.missingId);
+      if (!id) throw CustomError.badRequest(categoryErrorMessages.requiredId);
       const useCase = new DeleteCategoryUseCase(this.categoryRepository);
-      const result = await useCase.execute(id);
-      return res.json(result);
+      await useCase.execute(id);
+      return res.status(204).send();
     } catch (error) {
       this.handleError(error, res);
     }
