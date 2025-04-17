@@ -42,7 +42,6 @@ export class MongoDbCategoryRepository implements CategoryRepository {
   createCategory = async (dto: CreateCategoryDto): Promise<CategoryEntity> => {
     try {
       const newDoc = await CategoryModel.create({ ...dto });
-      await newDoc.save();
       const categoryEntity = CategoryMapper.categoryEntityFromObject(newDoc.toObject());
       return categoryEntity;
     } catch (error) {

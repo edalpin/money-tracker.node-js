@@ -3,11 +3,11 @@ import { UpdateMovementDto } from "@/domain/dtos/movement/update";
 import { CustomError } from "@/domain/errors/custom";
 import { genericErrorMessages, movementErrorMessages } from "@/domain/errors/messages";
 import { MovementRepository } from "@/domain/repositories/movement";
-import { CreateMovementUseCase } from "@/domain/use-cases/movement/create";
-import { DeleteMovementUseCase } from "@/domain/use-cases/movement/delete";
-import { GetMovementsUseCase } from "@/domain/use-cases/movement/get-all";
-import { GetMovementUseCase } from "@/domain/use-cases/movement/get-by-id";
-import { UpdateMovementUseCase } from "@/domain/use-cases/movement/update";
+import { CreateMovementUseCase } from "@/application/use-cases/movement/create";
+import { DeleteMovementUseCase } from "@/application/use-cases/movement/delete";
+import { GetMovementsUseCase } from "@/application/use-cases/movement/get-all";
+import { GetMovementUseCase } from "@/application/use-cases/movement/get-by-id";
+import { UpdateMovementUseCase } from "@/application/use-cases/movement/update";
 import { Request, Response } from "express";
 
 export class MovementController {

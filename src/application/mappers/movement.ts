@@ -31,7 +31,6 @@ export class MovementMapper {
 
     // Category validation
     CustomValidator.validateRequired(category, movementErrorMessages.requiredCategory);
-    CustomValidator.validateString(category, movementErrorMessages.invalidCategoryType);
 
     // Amount validation
     CustomValidator.validateRequired(amount, movementErrorMessages.requiredAmount);
