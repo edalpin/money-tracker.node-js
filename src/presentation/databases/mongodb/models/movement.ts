@@ -13,7 +13,8 @@ const movementSchema = new Schema({
     required: [true, movementErrorMessages.requiredType],
   },
   category: {
-    type: String,
+    type: mongoose.Types.ObjectId,
+    ref: "Category",
     required: [true, movementErrorMessages.requiredCategory],
   },
   amount: {

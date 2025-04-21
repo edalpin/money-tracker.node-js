@@ -3,11 +3,11 @@ import { UpdateCategoryDto } from "@/domain/dtos/category/update";
 import { CustomError } from "@/domain/errors/custom";
 import { categoryErrorMessages, genericErrorMessages } from "@/domain/errors/messages";
 import { CategoryRepository } from "@/domain/repositories/category";
-import { CreateCategoryUseCase } from "@/domain/use-cases/category/create";
-import { DeleteCategoryUseCase } from "@/domain/use-cases/category/delete";
-import { GetCategoriesUseCase } from "@/domain/use-cases/category/get-all";
-import { GetCategoryUseCase } from "@/domain/use-cases/category/get-by-id";
-import { UpdateCategoryUseCase } from "@/domain/use-cases/category/update";
+import { CreateCategoryUseCase } from "@/application/use-cases/category/create";
+import { DeleteCategoryUseCase } from "@/application/use-cases/category/delete";
+import { GetCategoriesUseCase } from "@/application/use-cases/category/get-all";
+import { GetCategoryUseCase } from "@/application/use-cases/category/get-by-id";
+import { UpdateCategoryUseCase } from "@/application/use-cases/category/update";
 import { Request, Response } from "express";
 
 /* eslint no-console: ["error", { allow: ["error"] }] */

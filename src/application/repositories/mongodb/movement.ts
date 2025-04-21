@@ -41,8 +41,11 @@ export class MongoDbMovementRepository implements MovementRepository {
 
   createMovement = async (dto: CreateMovementDto): Promise<MovementEntity> => {
     try {
+      const isValidCategory = isValidObjectId(dto.category);
+      if (!isValidCategory) {
+        throw CustomError.badRequest(movementErrorMessages.invalidCategoryType);
+      }
       const newDoc = await MovementModel.create({ ...dto });
-      await newDoc.save();
       const movementEntity = MovementMapper.movementEntityFromObject(newDoc.toObject());
       return movementEntity;
     } catch (error) {
