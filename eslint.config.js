@@ -20,4 +20,11 @@ export default defineConfig([
       "no-console": "error",
     },
   },
+  {
+    files: ["**/*.test.{js,ts}", "**/*.spec.{js,ts}"],
+    rules: {
+      "no-unused-expressions": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
+    },
+  },
 ]);

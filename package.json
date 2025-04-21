@@ -6,9 +6,10 @@
   "description": "",
   "scripts": {
     "dev": "tsnd --respawn -r tsconfig-paths/register src/app.ts",
-    "build": "rimraf ./dist && tsc && tsc-alias",
+    "build": "rimraf ./dist && tsc --project tsconfig.prod.json && tsc-alias",
     "start": "npm run build && node dist/app.js",
     "test": "jest",
+    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "eslint": "eslint ./src",
     "prettier": "prettier --check .",

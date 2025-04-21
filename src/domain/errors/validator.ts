@@ -32,7 +32,11 @@ export class CustomValidator {
   }
 
   static validateDate(value: unknown, errorMessage: string): void {
-    if (typeof value === "string" && isNaN(Date.parse(value))) {
+    if (
+      !(value instanceof Date && !isNaN(value.getTime())) &&
+      !(typeof value === "string" && !isNaN(Date.parse(value))) &&
+      !(typeof value === "number" && !isNaN(new Date(value).getTime()))
+    ) {
       throw CustomError.badRequest(errorMessage);
     }
   }

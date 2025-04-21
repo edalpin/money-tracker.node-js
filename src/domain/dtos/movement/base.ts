@@ -1,5 +1,5 @@
 import { movementTypeOptions } from "@/domain/entities/movement";
-import { genericErrorMessages, movementErrorMessages } from "@/domain/errors/messages";
+import { movementErrorMessages } from "@/domain/errors/messages";
 import { CustomValidator } from "@/domain/errors/validator";
 import { GenericObject } from "@/shared/types";
 
@@ -11,8 +11,6 @@ export abstract class BaseMovementDto {
   public readonly createdAt: Date;
 
   protected constructor(object: GenericObject) {
-    CustomValidator.validateObject(object, genericErrorMessages.invalidObject);
-
     const { name, type, category, amount, createdAt } = object;
 
     // Name validation
