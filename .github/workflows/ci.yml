@@ -28,6 +28,9 @@ jobs:
       - name: Build Code
         run: npm run build
 
+      - name: Test Code
+        run: npm run test
+
       - name: Run EsLint
         run: npm run eslint
 

@@ -1,24 +1,18 @@
-import { CreateMovementDto } from "@/domain/dtos/movement/create";
-import { UpdateMovementDto } from "@/domain/dtos/movement/update";
-import { CustomError } from "@/domain/errors/custom";
-import { genericErrorMessages, movementErrorMessages } from "@/domain/errors/messages";
-import { MovementRepository } from "@/domain/repositories/movement";
 import { CreateMovementUseCase } from "@/application/use-cases/movement/create";
 import { DeleteMovementUseCase } from "@/application/use-cases/movement/delete";
 import { GetMovementsUseCase } from "@/application/use-cases/movement/get-all";
 import { GetMovementUseCase } from "@/application/use-cases/movement/get-by-id";
 import { UpdateMovementUseCase } from "@/application/use-cases/movement/update";
+import { CreateMovementDto } from "@/domain/dtos/movement/create";
+import { UpdateMovementDto } from "@/domain/dtos/movement/update";
+import { CustomError } from "@/domain/errors/custom";
+import { genericErrorMessages, movementErrorMessages } from "@/domain/errors/messages";
+import { MovementRepository } from "@/domain/repositories/movement";
+import { ErrorHandler } from "@/presentation/servers/express/shared/error-handler";
 import { Request, Response } from "express";
 
 export class MovementController {
   constructor(private readonly movementRepository: MovementRepository) {}
-
-  private handleError(error: unknown, res: Response) {
-    if (error instanceof CustomError) {
-      return res.status(error.code).json({ error: error.message });
-    }
-    return res.status(500).json({ error: genericErrorMessages.serverError });
-  }
 
   getMovement = async (req: Request, res: Response) => {
     try {
@@ -28,7 +22,7 @@ export class MovementController {
       const result = await useCase.execute(id);
       return res.json(result);
     } catch (error) {
-      this.handleError(error, res);
+      ErrorHandler.handleError(error, res);
     }
   };
 
@@ -38,18 +32,20 @@ export class MovementController {
       const result = await useCase.execute();
       res.json(result);
     } catch (error) {
-      this.handleError(error, res);
+      ErrorHandler.handleError(error, res);
     }
   };
 
   createMovement = async (req: Request, res: Response) => {
     try {
-      const dto = CreateMovementDto.create(req.body);
+      const body = req.body;
+      if (!body) throw CustomError.badRequest(genericErrorMessages.invalidObject);
+      const dto = new CreateMovementDto(body);
       const useCase = new CreateMovementUseCase(this.movementRepository);
       const result = await useCase.execute(dto);
       res.json(result);
     } catch (error) {
-      this.handleError(error, res);
+      ErrorHandler.handleError(error, res);
     }
   };
 
@@ -57,12 +53,14 @@ export class MovementController {
     try {
       const id = req.params.id;
       if (!id) throw CustomError.badRequest(movementErrorMessages.requiredId);
-      const dto = UpdateMovementDto.create(req.body);
+      const body = req.body;
+      if (!body) throw CustomError.badRequest(genericErrorMessages.invalidObject);
+      const dto = new UpdateMovementDto(body);
       const useCase = new UpdateMovementUseCase(this.movementRepository);
       const result = await useCase.execute(id, dto);
       res.json(result);
     } catch (error) {
-      this.handleError(error, res);
+      ErrorHandler.handleError(error, res);
     }
   };
 
@@ -74,7 +72,7 @@ export class MovementController {
       await useCase.execute(id);
       res.status(204).send();
     } catch (error) {
-      this.handleError(error, res);
+      ErrorHandler.handleError(error, res);
     }
   };
 }

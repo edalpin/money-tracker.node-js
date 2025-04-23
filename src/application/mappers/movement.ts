@@ -3,14 +3,12 @@ import {
   MovementType,
   movementTypeOptions,
 } from "@/domain/entities/movement";
-import { genericErrorMessages, movementErrorMessages } from "@/domain/errors/messages";
+import { movementErrorMessages } from "@/domain/errors/messages";
 import { CustomValidator } from "@/domain/errors/validator";
 import { GenericObject } from "@/shared/types";
 
 export class MovementMapper {
   static movementEntityFromObject(object: GenericObject): MovementEntity {
-    CustomValidator.validateObject(object, genericErrorMessages.invalidObject);
-
     const { _id, id, type, name, category, amount, createdAt } = object;
     const movementId = _id ?? id;
 
