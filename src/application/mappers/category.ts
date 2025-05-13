@@ -1,6 +1,6 @@
 import { CategoryEntity } from "@/domain/entities/category";
 import { categoryErrorMessages } from "@/domain/errors/messages";
-import { CustomValidator } from "@/domain/errors/validator";
+import { GenericValidator } from "@/domain/validators/generic";
 import { GenericObject } from "@/shared/types";
 
 export class CategoryMapper {
@@ -9,11 +9,11 @@ export class CategoryMapper {
     const categoryId = _id ?? id;
 
     // Category ID validation
-    CustomValidator.validateRequired(categoryId, categoryErrorMessages.requiredId);
+    GenericValidator.validateRequired(categoryId, categoryErrorMessages.requiredId);
 
     // Category name validation
-    CustomValidator.validateRequired(name, categoryErrorMessages.requiredName);
-    CustomValidator.validateString(name, categoryErrorMessages.invalidNameType);
+    GenericValidator.validateRequired(name, categoryErrorMessages.requiredName);
+    GenericValidator.validateString(name, categoryErrorMessages.invalidNameType);
 
     return new CategoryEntity(categoryId as string, name as string);
   }

@@ -1,9 +1,9 @@
 import { BaseCategoryDto } from "@/domain/dtos/category/base";
 import { categoryErrorMessages } from "@/domain/errors/messages";
-import { CustomValidator } from "@/domain/errors/validator";
+import { GenericValidator } from "@/domain/validators/generic";
 import { GenericObject } from "@/shared/types";
 
-jest.mock("@/domain/errors/validator");
+jest.mock("@/domain/validators/generic");
 
 describe("BaseCategoryDto", () => {
   class TestCategoryDto extends BaseCategoryDto {
@@ -26,7 +26,7 @@ describe("BaseCategoryDto", () => {
 
     // Assert
     expect(dto).toBeInstanceOf(BaseCategoryDto);
-    expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+    expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
       validObject.name,
       categoryErrorMessages.requiredName,
     );
@@ -41,7 +41,7 @@ describe("BaseCategoryDto", () => {
 
     // Assert
     expect(dto).toBeInstanceOf(BaseCategoryDto);
-    expect(CustomValidator.validateString).toHaveBeenCalledWith(
+    expect(GenericValidator.validateString).toHaveBeenCalledWith(
       validObject.name,
       categoryErrorMessages.invalidNameType,
     );
@@ -49,7 +49,7 @@ describe("BaseCategoryDto", () => {
 
   it("should throw an error if a validation fails", () => {
     // Arrange
-    jest.spyOn(CustomValidator, "validateRequired").mockImplementation(() => {
+    jest.spyOn(GenericValidator, "validateRequired").mockImplementation(() => {
       throw new Error();
     });
 

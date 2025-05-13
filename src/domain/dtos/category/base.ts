@@ -1,5 +1,5 @@
 import { categoryErrorMessages } from "@/domain/errors/messages";
-import { CustomValidator } from "@/domain/errors/validator";
+import { GenericValidator } from "@/domain/validators/generic";
 import { GenericObject } from "@/shared/types";
 
 export abstract class BaseCategoryDto {
@@ -9,8 +9,8 @@ export abstract class BaseCategoryDto {
     const { name } = object;
 
     // Name validation
-    CustomValidator.validateRequired(name, categoryErrorMessages.requiredName);
-    CustomValidator.validateString(name, categoryErrorMessages.invalidNameType);
+    GenericValidator.validateRequired(name, categoryErrorMessages.requiredName);
+    GenericValidator.validateString(name, categoryErrorMessages.invalidNameType);
 
     this.name = name as string;
   }

@@ -1,9 +1,9 @@
 import { MovementMapper } from "@/application/mappers/movement";
 import { MovementEntity, movementTypeOptions } from "@/domain/entities/movement";
 import { movementErrorMessages } from "@/domain/errors/messages";
-import { CustomValidator } from "@/domain/errors/validator";
+import { GenericValidator } from "@/domain/validators/generic";
 
-jest.mock("@/domain/errors/validator");
+jest.mock("@/domain/validators/generic");
 
 describe("MovementMapper", () => {
   beforeEach(() => {
@@ -27,27 +27,27 @@ describe("MovementMapper", () => {
       MovementMapper.movementEntityFromObject(mockObject);
 
       // Assert
-      expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+      expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
         mockObject._id,
         movementErrorMessages.requiredId,
       );
-      expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+      expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
         mockObject.type,
         movementErrorMessages.requiredType,
       );
-      expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+      expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
         mockObject.name,
         movementErrorMessages.requiredName,
       );
-      expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+      expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
         mockObject.category,
         movementErrorMessages.requiredCategory,
       );
-      expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+      expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
         mockObject.amount,
         movementErrorMessages.requiredAmount,
       );
-      expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+      expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
         mockObject.createdAt,
         movementErrorMessages.requiredCreatedAt,
       );
@@ -68,20 +68,20 @@ describe("MovementMapper", () => {
       MovementMapper.movementEntityFromObject(mockObject);
 
       // Assert
-      expect(CustomValidator.validateEnum).toHaveBeenCalledWith(
+      expect(GenericValidator.validateEnum).toHaveBeenCalledWith(
         mockObject.type,
         Object.values(movementTypeOptions),
         movementErrorMessages.invalidTypeType,
       );
-      expect(CustomValidator.validateString).toHaveBeenCalledWith(
+      expect(GenericValidator.validateString).toHaveBeenCalledWith(
         mockObject.name,
         movementErrorMessages.invalidNameType,
       );
-      expect(CustomValidator.validateNumber).toHaveBeenCalledWith(
+      expect(GenericValidator.validateNumber).toHaveBeenCalledWith(
         mockObject.amount,
         movementErrorMessages.invalidAmountType,
       );
-      expect(CustomValidator.validateDate).toHaveBeenCalledWith(
+      expect(GenericValidator.validateDate).toHaveBeenCalledWith(
         mockObject.createdAt,
         movementErrorMessages.invalidCreateAtType,
       );
@@ -98,7 +98,7 @@ describe("MovementMapper", () => {
         createdAt: new Date(),
       };
 
-      (CustomValidator.validateRequired as jest.Mock).mockImplementation(() => {
+      (GenericValidator.validateRequired as jest.Mock).mockImplementation(() => {
         throw new Error();
       });
 

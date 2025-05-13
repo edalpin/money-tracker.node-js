@@ -3,9 +3,9 @@ import { UpdateMovementDto } from "@/domain/dtos/movement/update";
 import { MovementEntity } from "@/domain/entities/movement";
 
 export abstract class MovementRepository {
-  abstract getMovement(id: string): Promise<MovementEntity>;
-  abstract getMovements(): Promise<MovementEntity[]>;
-  abstract createMovement(dto: CreateMovementDto): Promise<MovementEntity>;
-  abstract updateMovement(id: string, dto: UpdateMovementDto): Promise<MovementEntity>;
-  abstract deleteMovement(id: string): Promise<void>;
+  abstract getById(id: string): Promise<MovementEntity | null>;
+  abstract updateById(id: string, dto: UpdateMovementDto): Promise<MovementEntity | null>;
+  abstract deleteById(id: string): Promise<boolean>;
+  abstract getAll(): Promise<MovementEntity[]>;
+  abstract create(dto: CreateMovementDto): Promise<MovementEntity>;
 }
