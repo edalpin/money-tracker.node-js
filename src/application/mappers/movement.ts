@@ -4,7 +4,7 @@ import {
   movementTypeOptions,
 } from "@/domain/entities/movement";
 import { movementErrorMessages } from "@/domain/errors/messages";
-import { CustomValidator } from "@/domain/errors/validator";
+import { GenericValidator } from "@/domain/validators/generic";
 import { GenericObject } from "@/shared/types";
 
 export class MovementMapper {
@@ -13,30 +13,30 @@ export class MovementMapper {
     const movementId = _id ?? id;
 
     // Movement ID validation
-    CustomValidator.validateRequired(movementId, movementErrorMessages.requiredId);
+    GenericValidator.validateRequired(movementId, movementErrorMessages.requiredId);
 
     // Type validation
-    CustomValidator.validateRequired(type, movementErrorMessages.requiredType);
-    CustomValidator.validateEnum(
+    GenericValidator.validateRequired(type, movementErrorMessages.requiredType);
+    GenericValidator.validateEnum(
       type,
       Object.values(movementTypeOptions),
       movementErrorMessages.invalidTypeType,
     );
 
     // Name validation
-    CustomValidator.validateRequired(name, movementErrorMessages.requiredName);
-    CustomValidator.validateString(name, movementErrorMessages.invalidNameType);
+    GenericValidator.validateRequired(name, movementErrorMessages.requiredName);
+    GenericValidator.validateString(name, movementErrorMessages.invalidNameType);
 
     // Category validation
-    CustomValidator.validateRequired(category, movementErrorMessages.requiredCategory);
+    GenericValidator.validateRequired(category, movementErrorMessages.requiredCategory);
 
     // Amount validation
-    CustomValidator.validateRequired(amount, movementErrorMessages.requiredAmount);
-    CustomValidator.validateNumber(amount, movementErrorMessages.invalidAmountType);
+    GenericValidator.validateRequired(amount, movementErrorMessages.requiredAmount);
+    GenericValidator.validateNumber(amount, movementErrorMessages.invalidAmountType);
 
     // CreatedAt validation
-    CustomValidator.validateRequired(createdAt, movementErrorMessages.requiredCreatedAt);
-    CustomValidator.validateDate(createdAt, movementErrorMessages.invalidCreateAtType);
+    GenericValidator.validateRequired(createdAt, movementErrorMessages.requiredCreatedAt);
+    GenericValidator.validateDate(createdAt, movementErrorMessages.invalidCreateAtType);
 
     return new MovementEntity(
       movementId as string,

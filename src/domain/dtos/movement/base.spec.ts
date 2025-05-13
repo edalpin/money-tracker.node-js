@@ -1,10 +1,10 @@
 import { movementTypeOptions } from "@/domain/entities/movement";
 import { movementErrorMessages } from "@/domain/errors/messages";
-import { CustomValidator } from "@/domain/errors/validator";
+import { GenericValidator } from "@/domain/validators/generic";
 import { GenericObject } from "@/shared/types";
 import { BaseMovementDto } from "./base";
 
-jest.mock("@/domain/errors/validator");
+jest.mock("@/domain/validators/generic");
 
 describe("BaseMovementDto", () => {
   beforeEach(() => {
@@ -32,23 +32,23 @@ describe("BaseMovementDto", () => {
 
     // Assert
     expect(dto).toBeInstanceOf(BaseMovementDto);
-    expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+    expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
       validObject.name,
       movementErrorMessages.requiredName,
     );
-    expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+    expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
       validObject.type,
       movementErrorMessages.requiredType,
     );
-    expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+    expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
       validObject.category,
       movementErrorMessages.requiredCategory,
     );
-    expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+    expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
       validObject.amount,
       movementErrorMessages.requiredAmount,
     );
-    expect(CustomValidator.validateRequired).toHaveBeenCalledWith(
+    expect(GenericValidator.validateRequired).toHaveBeenCalledWith(
       validObject.createdAt,
       movementErrorMessages.requiredCreatedAt,
     );
@@ -69,24 +69,24 @@ describe("BaseMovementDto", () => {
 
     // Assert
     expect(dto).toBeInstanceOf(BaseMovementDto);
-    expect(CustomValidator.validateString).toHaveBeenCalledWith(
+    expect(GenericValidator.validateString).toHaveBeenCalledWith(
       validObject.name,
       movementErrorMessages.invalidNameType,
     );
-    expect(CustomValidator.validateEnum).toHaveBeenCalledWith(
+    expect(GenericValidator.validateEnum).toHaveBeenCalledWith(
       validObject.type,
       Object.values(movementTypeOptions),
       movementErrorMessages.invalidTypeType,
     );
-    expect(CustomValidator.validateString).toHaveBeenCalledWith(
+    expect(GenericValidator.validateString).toHaveBeenCalledWith(
       validObject.category,
       movementErrorMessages.invalidCategoryType,
     );
-    expect(CustomValidator.validateNumber).toHaveBeenCalledWith(
+    expect(GenericValidator.validateNumber).toHaveBeenCalledWith(
       validObject.amount,
       movementErrorMessages.invalidAmountType,
     );
-    expect(CustomValidator.validateDate).toHaveBeenCalledWith(
+    expect(GenericValidator.validateDate).toHaveBeenCalledWith(
       validObject.createdAt,
       movementErrorMessages.invalidCreateAtType,
     );
@@ -94,7 +94,7 @@ describe("BaseMovementDto", () => {
 
   it("should throw an error if a validation fails", () => {
     // Arrange
-    jest.spyOn(CustomValidator, "validateRequired").mockImplementation(() => {
+    jest.spyOn(GenericValidator, "validateRequired").mockImplementation(() => {
       throw new Error();
     });
 

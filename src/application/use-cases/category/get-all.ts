@@ -5,6 +5,6 @@ export class GetCategoriesUseCase {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
   execute(): Promise<CategoryEntity[]> {
-    return this.categoryRepository.getCategories();
+    return this.categoryRepository.getAll();
   }
 }

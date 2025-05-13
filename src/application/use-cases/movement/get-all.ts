@@ -5,6 +5,6 @@ export class GetMovementsUseCase {
   constructor(private readonly movementRepository: MovementRepository) {}
 
   execute(): Promise<MovementEntity[]> {
-    return this.movementRepository.getMovements();
+    return this.movementRepository.getAll();
   }
 }

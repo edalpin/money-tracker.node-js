@@ -12,8 +12,9 @@ export const genericErrorMessages = {
 export const categoryErrorMessages = {
   // Database errors
   notFound: "Category not found.",
-  alreadyExist: "Category already exists.",
+  alreadyExists: "Category already exists.",
   invalidId: "Category id is not valid.",
+  notDeleted: "Category was not deleted.",
   // Validation errors
   requiredId: "Category id is required.",
   requiredName: "Category name is required.",
@@ -25,6 +26,7 @@ export const movementErrorMessages = {
   notFound: "Movement not found.",
   alreadyExist: "Movement already exists.",
   invalidId: "Movement id is not valid.",
+  notDeleted: "Movement was not deleted.",
   // Validation errors
   requiredId: "Movement id is required.",
   requiredName: "Movement name is required.",

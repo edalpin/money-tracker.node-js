@@ -1,12 +1,10 @@
 import { envs } from "@/config/envs";
-import { ExpressServer } from "@/presentation/servers/express/server";
-import { AppRoutes } from "@/presentation/servers/express/routes";
-import { MongodbDatabase } from "@/presentation/databases/mongodb/config";
+import { MongodbDatabase } from "@/infrastructure/data/mongodb/config";
+import { ExpressServer } from "@/presentation/express/server";
 
 const main = async () => {
   const port = envs.PORT;
-  const routes = AppRoutes.routes;
-  const server = new ExpressServer({ port, routes });
+  const server = new ExpressServer({ port });
 
   MongodbDatabase.connect({
     databaseName: envs.MONGODB_DATABASE,
